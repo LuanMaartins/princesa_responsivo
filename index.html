@@ -22,11 +22,11 @@
             left: 0;
             width: 100%;
             background: black;
-            padding: 20px 0;
+            padding: 10px 0;
             z-index: 1000;
         }
         h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             font-family: 'Dancing Script', cursive;
             text-shadow: 0 0 10px pink, 0 0 20px pink;
             animation: glow 1.5s infinite alternate;
@@ -40,16 +40,18 @@
             }
         }
         nav {
-            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             background: black;
-            padding: 10px 0;
+            padding: 10px;
+            gap: 10px;
         }
         nav a {
             color: pink;
             text-decoration: none;
-            font-size: 1.2em;
-            margin: 10px;
-            padding: 5px 15px;
+            font-size: 1em;
+            padding: 10px;
             border: 2px solid pink;
             border-radius: 10px;
             transition: 0.3s;
@@ -65,9 +67,11 @@
             justify-content: center;
             background-size: cover;
             background-position: center;
+            padding: 20px;
+            flex-direction: column;
         }
         section {
-            padding: 100px 20px 50px;
+            padding: 80px 20px 50px;
             min-height: 100vh;
             scroll-margin-top: 140px;
         }
@@ -118,7 +122,8 @@
             margin: 15% auto;
             padding: 20px;
             border-radius: 10px;
-            width: 50%;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
             font-size: 1.5em;
         }
@@ -154,6 +159,27 @@
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-100vh); opacity: 0; }
         }
+
+        .pause-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 1.5em;
+            background-color: pink;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            animation: infinite;
+            z-index: 1000; /* Garante que o botão fique acima de outros elementos */
+        }
+        
+        .pause-btn:hover {
+            background-color: red;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -161,38 +187,40 @@
     <header>
         <h1>Parabéns Princesa</h1>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#inteligencia">Inteligência</a>
-            <a href="#beleza">Beleza</a>
-            <a href="#companheirismo">Companheirismo</a>
+            <a href="#home">spoiler</a>
+            <a href="#inteligencia">spoiler_1</a>
+            <a href="#beleza">spoiler_2</a>
+            <a href="#companheirismo">spoiler_3</a>
         </nav>
     </header>
     
     <section id="home">
         <img src="https://via.placeholder.com/800x400?text=Imagem+Especial" alt="Imagem especial"
             style="max-width: 80%; border-radius: 20px; box-shadow: 0 0 20px pink;">
-    </section>
+    </section>       
     
-    <audio id="musica" controls autoplay loop>
-        <source src="musica.mp3" type="audio/mpeg">
+    <audio id="musica" autoplay loop>
+        <source src="https://raw.githubusercontent.com/LuanMaartins/Princesa/main/Iframe%20Shawn%20Mendes%20-%20Kid%20In%20Love%20(Official%20Audio)%20%5BQiEz1GleIbs%5D.mp3" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
     </audio>
+
+    <button class="pause-btn" onclick="toggleAudio()">⏸️</button>
     
-    <section id="inteligencia">
-        <h2>Inteligência</h2>
-        <p>Você tem uma mente brilhante e uma sabedoria incrível.</p>
+    <section id="spoiler_1">
+        <h2>spoiler_1</h2>
+        <p>spoiler_1</p>
         <img src="https://via.placeholder.com/800x400?text=Imagem+Especial" alt="Imagem especial"
             style="max-width: 80%; border-radius: 20px; box-shadow: 0 0 20px pink;">
     </section>
-    <section id="beleza">
-        <h2>Beleza</h2>
-        <p>Você é simplesmente radiante.</p>
+    <section id="spoiler_2">
+        <h2>spoiler_2</h2>
+        <p>spoiler_2</p>
         <img src="https://via.placeholder.com/800x400?text=Imagem+Especial" alt="Imagem especial"
             style="max-width: 80%; border-radius: 20px; box-shadow: 0 0 20px pink;">
     </section>
-    <section id="companheirismo">
-        <h2>Companheirismo</h2>
-        <p>Você sempre está ao lado de quem precisa.</p>
+    <section id="spoiler_3">
+        <h2>spoiler_3</h2>
+        <p>spoiler_3</p>
         <img src="https://via.placeholder.com/800x400?text=Imagem+Especial" alt="Imagem especial"
             style="max-width: 80%; border-radius: 20px; box-shadow: 0 0 20px pink;">
         <div class="parabens-container">
@@ -203,7 +231,7 @@
     <div id="parabensModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="fecharModal()">&times;</span>
-            <p>Parabéns, minha princesa! 🎉❤️</p>
+            <p>spoiler</p>
         </div>
     </div>
     
@@ -232,6 +260,26 @@
             let modal = document.getElementById("parabensModal");
             if (event.target == modal) {
                 modal.style.display = "none";
+            }
+        }       
+
+        let audio = document.getElementById("musica");
+
+        function iniciarAudio() {
+            audio.play().catch(error => console.log("Autoplay bloqueado:", error));
+            document.removeEventListener("click", iniciarAudio);
+            document.removeEventListener("touchstart", iniciarAudio);
+        }
+    
+        document.addEventListener("click", iniciarAudio);
+        document.addEventListener("touchstart", iniciarAudio);
+    
+        function toggleAudio() {
+            let audio = document.getElementById("musica");
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
             }
         }
     </script>
